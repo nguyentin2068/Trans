@@ -1,0 +1,1710 @@
+FF..FFFFFFFFFF.FFF.F.F.F.F.F.FFF..FF..F.F.F.F...F..FF.F...F.FFF.F.FFF...F.F...FFF.FFFFF.FFFF..FF.FFF.FFFFF.F...FFF.FFFFF.......FFFFFFFFF.FFF.FFFF.F..FF.FFF...FFFFF.F....FFFFFF.......FFF.F..FF...F....FFFF..FFFF...F....FF...F..FF.F..FF.....FFF..FF.F.....FFF.FFF....FFF....FF...F.........F.F.......F..FFFF...F....FF.F.F.....F....F....FF..........F.F.....FF..FF...FSSS.F...F.F...F.F...F.F...FSFSSSFSFFFFS..F...F.F.....F...F.......F.F.F..FSSS.......F..FFFFF..F.F.FFF.F.F.F..FFFFS.FFFSFFFFS..FFF....FF..FFFF.FFFFFFFFFFFFF
+
+Failures/Skipped:
+
+Title: 5.3.5 | Ensure SSH LogLevel is appropriate
+Meta:
+    CIS_ID: [5.3.5]
+    server: 1
+    workstation: 1
+Command: ssh_loglevel: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_loglevel: stdout: patterns not found: [/LogLevel (VERBOSE|INFO)/]
+
+Title: 5.3.22 | Ensure SSH MaxSessions is limited
+Meta:
+    CIS_ID: [5.3.22]
+    server: 1
+    workstation: 1
+Command: ssh_maxsessions: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_maxsessions: stdout: patterns not found: [/^(?i)MaxSessions ([2-9]|10)/]
+
+Title: 4.1.14 | Ensure changes to system administration scope (sudoers) is collected | Config
+Meta:
+    CIS_ID: [4.1.14]
+    server: 2
+    workstation: 2
+Command: auditd_admin_scope_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_admin_scope_cnf: stdout: patterns not found: [-w /etc/sudoers -p wa -k scope, -w /etc/sudoers.d/ -p wa -k scope]
+
+Title: 5.3.6 | Ensure SSH X11 forwarding is disabled
+Meta:
+    CIS_ID: [5.3.6]
+    server: 2
+    workstation: 1
+Command: ssh_x11: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_x11: stdout: patterns not found: [/^(?i)X11forwarding no/]
+
+Title: 4.1.1.4 | Ensure audit_backlog_limit is sufficient | bootloader file
+Meta:
+    CIS_ID: [4.1.1.4]
+    server: 2
+    workstation: 2
+Command: auditd_grub_backlog: exit-status:
+Expected
+    <int>: 0
+to equal
+    <int>: 1
+Command: auditd_grub_backlog: stdout: patterns not found: [0]
+
+Title: 4.1.4 | Ensure events that modify user/group information are collected | Live
+Meta:
+    CIS_ID: [4.1.4]
+    server: 2
+    workstation: 2
+Command: auditd_identity_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_identity_live: stdout: patterns not found: [-w /etc/group -p wa -k identity, -w /etc/passwd -p wa -k identity, -w /etc/gshadow -p wa -k identity, -w /etc/shadow -p wa -k identity, -w /etc/security/opasswd -p wa -k identity]
+
+Title: 3.3.1 | Ensure source routed packets are not accepted | IPv4 default source routed conf
+Meta:
+    CIS_ID: [3.3.1]
+    server: 1
+    workstation: 1
+Command: ipv4_def_source_route: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.default.accept_source_route(\s|)=(\s|)0/]
+
+Title: 4.1.5 | Ensure events that modify the system's network environment are collected | Config
+Meta:
+    CIS_ID: [4.1.5]
+    server: 2
+    workstation: 2
+Command: auditd_locale_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_locale_cnf: stdout: patterns not found: [-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale, -a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale, -w /etc/issue -p wa -k system-locale, -w /etc/issue.net -p wa -k system-locale, -w /etc/hosts -p wa -k system-locale, -w /etc/network -p wa -k system-locale]
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv4 all icmp redirects conf
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+Command: ipv4_all_icmp_redirects: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.all.accept_redirects(\s|)=(\s|)0/]
+
+Title: 1.5.2 | Ensure address space layout randomization (ASLR) is enabled | sysctl_configured
+Meta:
+    CIS_ID: [1.5.2]
+    server: 1
+    workstation: 1
+Command: aslr_enabled_2: stdout: patterns not found: [/kernel.randomize_va_space(\s|)=(\s|)2/]
+
+Title: 3.2.2 | Ensure IP forwarding is disabled | IPv6 config
+Meta:
+    CIS_ID: [3.2.2]
+    server: 1
+    workstation: 1
+Command: ipv6_ip_forward: stdout: patterns not found: [/^.*:net.ipv6.conf.all.forwarding=0/]
+
+Title: 1.1.24 | Ensure mounting of usb-storage is disabled
+Meta:
+    CIS_ID: 1.1.24
+    server: 1
+    workstation: 2
+Command: usb-storage: stdout: patterns not found: [install /bin/true]
+
+Title: 3.5.1.7 | Ensure ufw default deny firewall policy
+Meta:
+    CIS_ID: [3.5.1.7]
+    server: 1
+    workstation: 1
+Command: ufw_def_deny: stdout: patterns not found: [!/^Manual/]
+
+Title: 1.4.4 | Ensure authentication required for single user mode
+Meta:
+    CIS_ID: [1.4.4]
+    server: 1
+    workstation: 1
+Command: check_root_pw: stdout: patterns not found: [!/^root is not locked/]
+
+Title: 4.1.7 | Ensure login and logout events are collected | Config
+Meta:
+    CIS_ID: [4.1.7]
+    server: 2
+    workstation: 2
+Command: auditd_logins_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_logins_cnf: stdout: patterns not found: [/-w /var/log/faillog -p wa -k logins/, /-w /var/log/lastlog -p wa -k logins/, /-w /var/log/tallylog -p wa -k logins/]
+
+Title: 4.2.1.6 | Ensure remote rsyslog messages are only accepted on designated log hosts | ModLoad
+Meta:
+    CIS_ID: [4.2.1.6]
+    server: 1
+    workstation: 1
+Command: rsyslog_des_hosts: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: rsyslog_des_hosts: stdout: patterns not found: [/^# \$ModLoad imtcp/]
+
+Title: 5.5.1.2 | Ensure password expiration is 365 days or less | user_check
+Meta:
+    CIS_ID: [5.5.1.2]
+    server: 1
+    workstation: 1
+Command: users_max_pw_expire: stdout: patterns not found: [!/^.*/]
+
+Title: 6.2.6 | Ensure all users' home directories permissions are 750 or more restrictive
+Meta:
+    CIS_ID: [6.2.6]
+    server: 1
+    workstation: 1
+Command: home_dirs_restrict: stdout: patterns not found: [/7(0|5)0\s/, !/^7[6-9][1-9]\s.*/]
+
+Title: 1.7.2 | Ensure local login warning banner is configured properly
+Meta:
+    CIS_ID: [1.7.2]
+    server: 1
+    workstation: 1
+Command: local_login_banner: stdout: patterns not found: [!/.*/]
+
+Title: 3.3.1 | Ensure source routed packets are not accepted | IPv4 all source routed conf
+Meta:
+    CIS_ID: [3.3.1]
+    server: 1
+    workstation: 1
+Command: ipv4_all_source_route: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.all.accept_source_route(\s|)=(\s|)0/]
+
+Title: 4.4 | Ensure logrotate assigns appropriate permissions | existing
+Meta:
+    CIS_ID: [4.4]
+    server: 1
+    workstation: 1
+Command: logrotate_perms: stdout: patterns not found: [!/.*/]
+
+Title: 4.1.13 | Ensure file deletion events by users are collected | Conf
+Meta:
+    CIS_ID: [4.1.13]
+    server: 2
+    workstation: 2
+Command: auditd_delete_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_delete_cnf: stdout: patterns not found: [/-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete|-a always,exit -F arch=b64 -S rmdir,unlink,unlinkat,rename -S renameat -F auid>=1000 -F auid!=4294967295 -F key=delete/, /-a always,exit -F arch=b32 -S unlink -S unlinkat -S rename -S renameat -F auid>=1000 -F auid!=4294967295 -k delete|-a always,exit -F arch=b32 -S rmdir,unlink,unlinkat,rename -S renameat -F auid>=1000 -F auid!=4294967295 -F key=delete/]
+
+Title: 1.1.20 | Ensure nosuid option set on removable media partitions | floppy
+Meta:
+    CIS_ID: 1.1.20
+    server: 1
+    workstation: 1
+Command: floppy_nosuid: stdout: patterns not found: [Passed_Check]
+
+Title: 3.3.1 | Ensure source routed packets are not accepted | IPv6 default source routed conf
+Meta:
+    CIS_ID: [3.3.1]
+    server: 1
+    workstation: 1
+Command: ipv6_def_source_route: stdout: patterns not found: [/^net.ipv6.conf.default.accept_source_route(\s|)=(\s|)0/]
+
+Title: 3.3.1 | Ensure source routed packets are not accepted | IPv6 all source routed conf
+Meta:
+    CIS_ID: [3.3.1]
+    server: 1
+    workstation: 1
+Command: ipv6_all_source_route: stdout: patterns not found: [/^net.ipv6.conf.all.accept_source_route= 0/]
+
+Title: 4.1.3 | Ensure events that modify date and time information are collected | Live
+Meta:
+    CIS_ID: [4.1.3]
+    server: 2
+    workstation: 2
+Command: auditd_time_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_time_live: stdout: patterns not found: [-a always,exit -F arch=b32 -S stime,settimeofday,adjtimex -F key=time-change, -a always,exit -F arch=b32 -S clock_settime -F key=time-change, -a always,exit -F arch=b64 -S adjtimex,settimeofday -F key=time-change, -a always,exit -F arch=b64 -S clock_settime -F key=time-change, -w /etc/localtime -p wa -k time-change]
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv6 all icmp redirects conf
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+Command: ipv6_all_icmp_redirects: stdout: patterns not found: [/^net.ipv6.conf.all.accept_redirects(\s|)=(\s|)0/]
+
+Title: 3.3.3 | Ensure secure ICMP redirects are not accepted | ipv4 all sec redirects conf
+Meta:
+    CIS_ID: [3.3.3]
+    server: 1
+    workstation: 1
+Command: ipv4_all_sec_redirects: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.all.secure_redirects(\s|)=(\s|)0/]
+
+Title: 5.3.13 | Ensure only strong Ciphers are used
+Meta:
+    CIS_ID: [5.3.13]
+    server: 1
+    workstation: 1
+Command: sshd_ciphers: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: sshd_ciphers: stdout: patterns not found: [Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr]
+
+Title: 3.4.2 | Ensure SCTP is disabled | sctp config
+Meta:
+    CIS_ID: [3.4.2]
+    server: 2
+    workstation: 2
+Command: modprobe_sctp: stdout: patterns not found: [install /bin/true]
+
+Title: 3.2.1 | Ensure packet redirect sending is disabled | all send_redirect config
+Meta:
+    CIS_ID: [3.2.1]
+    server: 1
+    workstation: 1
+Command: ipv4_disable_all_redirect: stdout: patterns not found: [/.*:net.ipv4.conf.all.send_redirects=0/]
+
+Title: 1.1.21 | Ensure noexec option set on removable media partitions | floppy
+Meta:
+    CIS_ID: 1.1.21
+    server: 1
+    workstation: 1
+Command: floppy_noexec: stdout: patterns not found: [Passed_Check]
+
+Title: 4.1.1.3 | Ensure auditing for processes that start prior to auditd is enabled | bootloader file
+Meta:
+    CIS_ID: [4.1.1.3]
+    server: 2
+    workstation: 2
+Command: auditd_grub: exit-status:
+Expected
+    <int>: 0
+to equal
+    <int>: 1
+Command: auditd_grub: stdout: patterns not found: [0]
+
+Title: 5.5.1.2 | Ensure password expiration is 365 days or less | logins.def
+Meta:
+    CIS_ID: [5.5.1.2]
+    server: 1
+    workstation: 1
+Command: login_defs_PASS_MAX_DAYS: stdout: patterns not found: [/^PASS_MAX_DAYS\s*365/, !/^PASS_MAX_DAYS\s*(36[6-9]|[4-9][0-9][0-9]|[1-9][0-9]{3,})/]
+
+Title: 5.3.20 | Ensure SSH AllowTcpForwarding is disabled
+Meta:
+    CIS_ID: [5.3.20]
+    server: 1
+    workstation: 1
+Command: sshd_tcpforwarding: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: sshd_tcpforwarding: stdout: patterns not found: [AllowTcpForwarding no]
+
+Title: 5.3.8 | Ensure SSH IgnoreRhosts is enabled
+Meta:
+    CIS_ID: [5.3.8]
+    server: 1
+    workstation: 1
+Command: ssh_rhosts: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_rhosts: stdout: patterns not found: [/^(?i)Ignorerhosts yes/]
+
+Title: 4.2.2.2 | Ensure journald is configured to compress large log files
+Meta:
+    CIS_ID: [4.2.2.2]
+    server: 1
+    workstation: 1
+Command: journald_compress: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: journald_compress: stdout: patterns not found: [Compress=yes]
+
+Title: 4.1.2.3 | Ensure system is disabled when audit logs are full
+Meta:
+    CIS_ID: [4.1.2.3]
+    server: 2
+    workstation: 2
+Command: auditd_space_actions: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_space_actions: stdout: patterns not found: [space_left_action = email, action_mail_acct = root, /^admin_space_left_action = halt/]
+
+Title: 4.1.16 | Ensure kernel module loading and unloading is collected | Live
+Meta:
+    CIS_ID: [4.1.16]
+    server: 2
+    workstation: 2
+Command: auditd_admin_module_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_admin_module_live: stdout: patterns not found: [-w /sbin/insmod -p x -k modules, -w /sbin/rmmod -p x -k modules, -w /sbin/modprobe -p x -k modules, -a always,exit -F arch=b64 -S init_module,delete_module -F key=modules]
+
+Title: 3.3.6 | Ensure bogus ICMP responses are ignored | ignore bogus icmp conf
+Meta:
+    CIS_ID: [3.3.6]
+    server: 1
+    workstation: 1
+Command: ipv4_ignore_bogus: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.icmp_ignore_bogus_error_responses(\s|)=(\s|)1/]
+
+Title: 4.1.2.2 | Ensure audit logs are not automatically deleted
+Meta:
+    CIS_ID: [4.1.2.2]
+    server: 2
+    workstation: 2
+Command: auditd_max_log_action: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_max_log_action: stdout: patterns not found: [max_log_file_action = keep_logs]
+
+Title: 3.3.8 | Ensure TCP SYN Cookies is enabled | ipv4 syncookies conf
+Meta:
+    CIS_ID: [3.3.8]
+    server: 1
+    workstation: 1
+Command: ipv4_tcp_syncookies: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.tcp_syncookies(\s|)=(\s|)1/]
+
+Title: 5.3.16 | Ensure SSH Idle Timeout Interval is configured
+Meta:
+    CIS_ID: [5.3.16]
+    server: 1
+    workstation: 1
+Command: sshd_clientalive: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: sshd_clientalive: stdout: patterns not found: [ClientAliveInterval 300, ClientAliveCountMax 3, /ClientAliveInterval ([1-9]|[1-2][0-9][0-9]|300)/, /ClientAliveCountMax [0-3]/]
+
+Title: 4.2.1.6 | Ensure remote rsyslog messages are only accepted on designated log hosts | TCP Port
+Meta:
+    CIS_ID: [4.2.1.6]
+    server: 1
+    workstation: 1
+Command: rsyslog_des_hosts_tcp: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: rsyslog_des_hosts_tcp: stdout: patterns not found: [/^# \$InputTCPServerRun 514/]
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv4 def icmp redirects conf
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+Command: ipv4_def_icmp_redirects: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.default.accept_redirects(\s|)=(\s|)0/]
+
+Title: 1.1.19 | Ensure nodev option set on removable media partitions | floppy
+Meta:
+    CIS_ID: 1.1.19
+    server: 1
+    workstation: 1
+Command: floppy_nodev: stdout: patterns not found: [Passed_Check]
+
+Title: 4.1.16 | Ensure kernel module loading and unloading is collected | Config
+Meta:
+    CIS_ID: [4.1.16]
+    server: 2
+    workstation: 2
+Command: auditd_module_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_module_cnf: stdout: patterns not found: [/-w /sbin/insmod -p x -k modules/, /-w /sbin/rmmod -p x -k modules/, /-w /sbin/modprobe -p x -k modules/, /-a always,exit -F arch=b64 -S init_module -S delete_module -k modules/]
+
+Title: 3.3.9 | Ensure IPv6 router advertisements are not accepted | ipv6 all router adverts conf
+Meta:
+    CIS_ID: [3.3.9]
+    server: 1
+    workstation: 1
+Command: ipv6_all_rtr_adverts: stdout: patterns not found: [/^net.ipv6.conf.all.accept_ra = 0/]
+
+Title: 4.1.12 | Ensure successful file system mounts are collected | Live
+Meta:
+    CIS_ID: [4.1.12]
+    server: 2
+    workstation: 2
+Command: auditd_mounts_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_mounts_live: stdout: patterns not found: [-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=-1 -F key=mounts, -a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=-1 -F key=mounts]
+
+Title: 4.1.4 | Ensure events that modify user/group information are collected | Config
+Meta:
+    CIS_ID: [4.1.4]
+    server: 2
+    workstation: 2
+Command: auditd_identity_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_identity_cnf: stdout: patterns not found: [-w /etc/group -p wa -k identity, -w /etc/passwd -p wa -k identity, -w /etc/gshadow -p wa -k identity, -w /etc/shadow -p wa -k identity, -w /etc/security/opasswd -p wa -k identity]
+
+Title: 1.4.3 | Ensure permissions on bootloader config are configured
+Meta:
+    CIS_ID: [1.4.3]
+    server: 1
+    workstation: 1
+Command: bootloader_file_perms: stdout: patterns not found: [/400 root root/]
+
+Title: 5.3.21 | Ensure SSH MaxStartups is configured
+Meta:
+    CIS_ID: [5.3.21]
+    server: 1
+    workstation: 1
+Command: ssh_maxstartups: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_maxstartups: stdout: patterns not found: [MaxStartups 10:30:60]
+
+Title: 5.3.7 | Ensure SSH MaxAuthTries is set to 4 or less
+Meta:
+    CIS_ID: [5.3.7]
+    server: 1
+    workstation: 1
+Command: sshd_authtries: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: sshd_authtries: stdout: patterns not found: [/(?i)maxauthtries [1-4]/]
+
+Title: 3.4.2 | Ensure SCTP is disabled | running sctp
+Meta:
+    CIS_ID: [3.4.2]
+    server: 2
+    workstation: 2
+Command: lsmod_sctp: exit-status:
+Expected
+    <int>: 0
+to equal
+    <int>: 1
+Command: lsmod_sctp: stdout: patterns not found: [!/^.*/]
+
+Title: 4.1.3 | Ensure events that modify date and time information are collected | Config
+Meta:
+    CIS_ID: [4.1.3]
+    server: 2
+    workstation: 2
+Command: auditd_time_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_time_cnf: stdout: patterns not found: [-a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change, -a always,exit -F arch=b32 -S adjtimex -S settimeofday -S stime -k time-change, -a always,exit -F arch=b64 -S clock_settime -k time-change, -a always,exit -F arch=b32 -S clock_settime -k time-change, -w /etc/localtime -p wa -k time-change]
+
+Title: 4.1.17 | Ensure the audit configuration is immutable
+Meta:
+    CIS_ID: [4.1.17]
+    server: 2
+    workstation: 2
+Command: auditd_immutable: stdout: patterns not found: [-e 2]
+
+Title: 5.3.17 | Ensure SSH LoginGraceTime is set to one minute or less
+Meta:
+    CIS_ID: [5.3.17]
+    server: 1
+    workstation: 1
+Command: ssh_logingrace: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_logingrace: stdout: patterns not found: [/^(?i)LoginGraceTime ([1-9]|[1-5][0-9]|60)$/]
+
+Title: 4.1.10 | Ensure unsuccessful unauthorized file access attempts are collected | Conf
+Meta:
+    CIS_ID: [4.1.10]
+    server: 2
+    workstation: 2
+Command: auditd_access_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_access_cnf: stdout: patterns not found: [/-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access/, /-a always,exit -F arch=b32 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access/, /-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=1000 -F auid!=4294967295 -k access/, /-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=1000 -F auid!=4294967295 -k access/]
+
+Title: 5.3.15 | Ensure only strong Key Exchange algorithms are used
+Meta:
+    CIS_ID: [5.3.15]
+    server: 1
+    workstation: 1
+Command: sshd_KEX: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: sshd_KEX: stdout: patterns not found: [KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256]
+
+Title: 3.5.1.6 | Ensure ufw firewall rules exist for all open ports
+Meta:
+    CIS_ID: [3.5.1.6]
+    server: 1
+    workstation: 1
+Command: ufw_open_ports: stdout: patterns not found: [!/^Manual/]
+
+Title: 1.5.4 | Ensure core dumps are restricted | sysctl.conf
+Meta:
+    CIS_ID: [1.5.4]
+    server: 1
+    workstation: 1
+Command: suid_dumpable_2: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: suid_dumpable_2: stdout: patterns not found: [fs.suid_dumpable=0]
+
+Title: 3.3.4 | Ensure suspicious packets are logged | ipv4 default martians conf
+Meta:
+    CIS_ID: [3.3.4]
+    server: 1
+    workstation: 1
+Command: ipv4_def_martians: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.default.log_martians(\s|)=(\s|)1/]
+
+Title: 4.2.1.5 | Ensure rsyslog is configured to send logs to a remote host
+Meta:
+    CIS_ID: [4.2.1.5]
+    server: 1
+    workstation: 1
+Command: remote_syslog: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: remote_syslog: stdout: patterns not found: [/\*\.\* @@*./]
+
+Title: 3.3.4 | Ensure suspicious packets are logged | ipv4 all martians conf
+Meta:
+    CIS_ID: [3.3.4]
+    server: 1
+    workstation: 1
+Command: ipv4_all_martians: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.all.log_martians(\s|)=(\s|)1/]
+
+Title: 4.1.9 | Ensure discretionary access control permission modification events are collected | Config
+Meta:
+    CIS_ID: [4.1.9]
+    server: 2
+    workstation: 2
+Command: auditd_perms_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_perms_cnf: stdout: patterns not found: [/-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod/, /-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=1000 -F auid!=4294967295 -k perm_mod/, /-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod/, /-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=1000 -F auid!=4294967295 -k perm_mod/, /-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod/, /-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=1000 -F auid!=4294967295 -k perm_mod/]
+
+Title: 4.1.13 | Ensure file deletion events by users are collected | Live
+Meta:
+    CIS_ID: [4.1.13]
+    server: 2
+    workstation: 2
+Command: auditd_delete_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_delete_live: stdout: patterns not found: [-a always,exit -F arch=b64 -S rename,unlink,unlinkat,renameat -F auid>=1000 -F auid!=-1 -F key=delete, -a always,exit -F arch=b32 -S unlink,rename,unlinkat,renameat -F auid>=1000 -F auid!=-1 -F key=delete]
+
+Title: 3.1.2 | L1 | Ensure wireless interfaces are disabled
+Meta:
+    CIS_ID: [3.1.2]
+    server: 1
+    workstation: 2
+Command: wireless_disabled: stdout: patterns not found: [/^(enabled|disabled)\s\s(disabled)\s\s(enabled|disabled)\s\s(disabled)/]
+
+Title: 4.2.2.3 | Ensure journald is configured to write logfiles to persistent disk
+Meta:
+    CIS_ID: [4.2.2.3]
+    server: 1
+    workstation: 1
+Command: journald_Storage: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: journald_Storage: stdout: patterns not found: [Storage=persistent]
+
+Title: 4.2.2.1 | Ensure journald is configured to send logs to rsyslog
+Meta:
+    CIS_ID: [4.2.2.1]
+    server: 1
+    workstation: 1
+Command: journald_fwd_syslog: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: journald_fwd_syslog: stdout: patterns not found: [/^ForwardToSyslog=yes/]
+
+Title: 5.3.19 | Ensure SSH PAM is enabled
+Meta:
+    CIS_ID: [5.3.19]
+    server: 1
+    workstation: 1
+Command: ssh_usepam: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_usepam: stdout: patterns not found: [UsePAM yes]
+
+Title: 3.4.1 | Ensure DCCP is disabled | DCCP config
+Meta:
+    CIS_ID: [3.4.1]
+    server: 2
+    workstation: 2
+Command: modprobe_dccp: stdout: patterns not found: [install /bin/true]
+
+Title: 5.3.10 | Ensure SSH root login is disabled
+Meta:
+    CIS_ID: [5.3.10]
+    server: 1
+    workstation: 1
+Command: ssh_permit_root: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_permit_root: stdout: patterns not found: [/^(?i)PermitRootLogin no/]
+
+Title: 1.5.4 | Ensure core dumps are restricted | security/limits.conf
+Meta:
+    CIS_ID: [1.5.4]
+    server: 1
+    workstation: 1
+Command: core_dumps_limits: stdout: patterns not found: [/^\/*.*\shard.*core.*0/]
+
+Title: 5.3.11 | Ensure SSH PermitEmptyPasswords is disabled
+Meta:
+    CIS_ID: [5.3.11]
+    server: 1
+    workstation: 1
+Command: ssh_empty_passwd: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_empty_passwd: stdout: patterns not found: [/^(?i)PermitEmptyPasswords no/]
+
+Title: 3.3.5 | Ensure broadcast ICMP requests are ignored | ipv4 ignore broadcast icmp conf
+Meta:
+    CIS_ID: [3.3.5]
+    server: 1
+    workstation: 1
+Command: ipv4_ignore_icmp_broadcast: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.icmp_echo_ignore_broadcasts(\s|)=(\s|)1/]
+
+Title: 5.3.12 | Ensure SSH PermitUserEnvironment is disabled
+Meta:
+    CIS_ID: [5.3.12]
+    server: 1
+    workstation: 1
+Command: ssh_userenv: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_userenv: stdout: patterns not found: [/^(?i)PermitUserEnvironment no/]
+
+Title: 4.1.2.1 | Ensure audit log storage size is configured
+Meta:
+    CIS_ID: [4.1.2.1]
+    server: 2
+    workstation: 2
+Command: auditd_max_log_file: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_max_log_file: stdout: patterns not found: [/max_log_file = [1-9][0-9]{1,2}/]
+
+Title: 4.1.7 | Ensure login and logout events are collected | Live
+Meta:
+    CIS_ID: [4.1.7]
+    server: 2
+    workstation: 2
+Command: auditd_logins_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_logins_live: stdout: patterns not found: [-w /var/log/faillog -p wa -k logins, -w /var/log/lastlog -p wa -k logins, -w /var/log/tallylog -p wa -k logins]
+
+Title: 4.1.12 | Ensure successful file system mounts are collected | Config
+Meta:
+    CIS_ID: [4.1.12]
+    server: 2
+    workstation: 2
+Command: auditd_mounts_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_mounts_cnf: stdout: patterns not found: [/-a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts/, /-a always,exit -F arch=b32 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts/]
+
+Title: 5.5.1.1 | Ensure minimum days between password changes is configured
+Meta:
+    CIS_ID: [5.5.1.1]
+    server: 1
+    workstation: 1
+Command: login_defs_PASS_MIN_DAYS: stdout: patterns not found: [/^PASS_MIN_DAYS\s*1/, /^PASS_MIN_DAYS\s*([1-9]|[1-9][0-9]{2,})/]
+
+Title: 4.1.8 | Ensure session initiation information is collected | Live
+Meta:
+    CIS_ID: [4.1.8]
+    server: 2
+    workstation: 2
+Command: auditd_session_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_session_live: stdout: patterns not found: [-w /var/run/utmp -p wa -k session, -w /var/log/wtmp -p wa -k logins, -w /var/log/btmp -p wa -k logins]
+
+Title: 6.2.4 | Ensure all users' home directories exist
+Meta:
+    CIS_ID: [6.2.4]
+    server: 1
+    workstation: 1
+Command: home_dirs_exist: stdout: patterns not found: [!/./]
+
+Title: 5.2.2 | Ensure sudo commands use pty | Config
+Meta:
+    CIS_ID: [5.2.2]
+    server: 1
+    workstation: 1
+Command: sudoers_use_pty: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: sudoers_use_pty: stdout: patterns not found: [/^Defaults.*\suse_pty/]
+
+Title: 3.3.3 | Ensure secure ICMP redirects are not accepted | ipv4 all def redirects conf
+Meta:
+    CIS_ID: [3.3.3]
+    server: 1
+    workstation: 1
+Command: ipv4_def_sec_redirects: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.default.secure_redirects(\s|)=(\s|)0/]
+
+Title: 4.1.15 | Ensure system administrator command executions (sudo) are collected | Config
+Meta:
+    CIS_ID: [4.1.15]
+    server: 2
+    workstation: 2
+Command: auditd_sudolog_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_sudolog_cnf: stdout: patterns not found: [-a always,exit -F arch=b64 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions, -a always,exit -F arch=b32 -C euid!=uid -F euid=0 -F auid>=1000 -F auid!=4294967295 -S execve -k actions]
+
+Title: 1.7.1 | Ensure message of the day is configured properly
+Meta:
+    CIS_ID: [1.7.1]
+    server: 1
+    workstation: 1
+Command: check_motd_files: stdout: patterns not found: [!/.*/]
+
+Title: 5.3.9 | Ensure SSH HostbasedAuthentication is disabled
+Meta:
+    CIS_ID: [5.3.9]
+    server: 1
+    workstation: 1
+Command: ssh_hostbased_auth: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_hostbased_auth: stdout: patterns not found: [/^(?i)HostbasedAuthentication no/]
+
+Title: 4.1.9 | Ensure discretionary access control permission modification events are collected | Live
+Meta:
+    CIS_ID: [4.1.9]
+    server: 2
+    workstation: 2
+Command: auditd_perms_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_perms_live: stdout: patterns not found: [-a always,exit -F arch=b64 -S chmod,fchmod,fchmodat -F auid>=1000 -F auid!=-1 -F key=perm_mod, -a always,exit -F arch=b32 -S chmod,fchmod,fchmodat -F auid>=1000 -F auid!=-1 -F key=perm_mod, -a always,exit -F arch=b64 -S chown,fchown,lchown,fchownat -F auid>=1000 -F auid!=-1 -F key=perm_mod, -a always,exit -F arch=b32 -S lchown,fchown,chown,fchownat -F auid>=1000 -F auid!=-1 -F key=perm_mod, -a always,exit -F arch=b64 -S setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F auid>=1000 -F auid!=-1 -F key=perm_mod, -a always,exit -F arch=b32 -S setxattr,lsetxattr,fsetxattr,removexattr,lremovexattr,fremovexattr -F auid>=1000 -F auid!=-1 -F key=perm_mod]
+
+Title: 6.1.1 | Audit system file permissions
+Meta:
+    CIS_ID: [6.1.1]
+    server: 2
+    workstation: 2
+Command: rpm_filecheck: stdout: patterns not found: [!/^Manual/]
+
+Title: 3.5.1.4 | Ensure ufw loopback traffic is configured
+Meta:
+    CIS_ID: [3.5.1.4]
+    server: 1
+    workstation: 1
+Command: ufw_local: stdout: patterns not found: [/^Anywhere on lo             ALLOW IN    Anywhere/, /^Anywhere                   DENY IN     127.0.0.0\/8/, /^Anywhere (v6) on lo        ALLOW IN    Anywhere (v6)/, /^Anywhere (v6)              DENY IN     ::1/, /^Anywhere                   ALLOW OUT   Anywhere on lo/, /^Anywhere (v6)              ALLOW OUT   Anywhere (v6) on lo/]
+
+Title: 4.1.5 | Ensure events that modify the system's network environment are collected | Live
+Meta:
+    CIS_ID: [4.1.5]
+    server: 2
+    workstation: 2
+Command: auditd_locale_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_locale_live: stdout: patterns not found: [-a always,exit -F arch=b64 -S sethostname,setdomainname -F key=system-locale, -a always,exit -F arch=b32 -S sethostname,setdomainname -F key=system-locale, -w /etc/issue -p wa -k system-locale, -w /etc/issue.net -p wa -k system-locale, -w /etc/hosts -p wa -k system-locale, -w /etc/network -p wa -k system-locale]
+
+Title: 3.3.9 | Ensure IPv6 router advertisements are not accepted | ipv6 default router adverts conf
+Meta:
+    CIS_ID: [3.3.9]
+    server: 1
+    workstation: 1
+Command: ipv6_def_rtr_adverts: stdout: patterns not found: [/^net.ipv6.conf.default.accept_ra(\s|)=(\s|)0/]
+
+Title: 4.1.14 | Ensure changes to system administration scope (sudoers) is collected | Live
+Meta:
+    CIS_ID: [4.1.14]
+    server: 2
+    workstation: 2
+Command: auditd_admin_scope_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_admin_scope_live: stdout: patterns not found: [-w /etc/sudoers -p wa -k scope, -w /etc/sudoers.d -p wa -k scope]
+
+Title: 4.1.11 | Ensure use of privileged commands is collected | Config
+Meta:
+    CIS_ID: [4.1.11]
+    server: 2
+    workstation: 2
+Command: auditd_priv_cmds_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+
+Title: 4.1.15 | Ensure system administrator command executions (sudo) are collected | Live
+Meta:
+    CIS_ID: [4.1.15]
+    server: 2
+    workstation: 2
+Command: auditd_sudolog_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_sudolog_live: stdout: patterns not found: [-a always,exit -F arch=b64 -S execve -C uid!=euid -F euid=0 -F auid>=1000 -F auid!=-1 -F key=actions, -a always,exit -F arch=b32 -S execve -C uid!=euid -F euid=0 -F auid>=1000 -F auid!=-1 -F key=actions]
+
+Title: 4.1.8 | Ensure session initiation information is collected | Config
+Meta:
+    CIS_ID: [4.1.8]
+    server: 2
+    workstation: 2
+Command: auditd_sessions_cnf: exit-status:
+Expected
+    <int>: 2
+to equal
+    <int>: 0
+Command: auditd_sessions_cnf: stdout: patterns not found: [-w /var/run/utmp -p wa -k session, -w /var/log/wtmp -p wa -k logins, -w /var/log/btmp -p wa -k logins]
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv6 def icmp redirects conf
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+Command: ipv6_def_icmp_redirects: stdout: patterns not found: [/^net.ipv6.conf.default.accept_redirects(\s|)=(\s|)0/]
+
+Title: 3.2.1 | Ensure packet redirect sending is disabled | default send_redirect config
+Meta:
+    CIS_ID: [3.2.1]
+    server: 1
+    workstation: 1
+Command: ipv4_disable_def_redirect: stdout: patterns not found: [/.*:net.ipv4.conf.default.send_redirects=0/]
+
+Title: 5.5.1.4 | Ensure inactive password lock is 30 days or less | users
+Meta:
+    CIS_ID: [5.5.1.4]
+    server: 1
+    workstation: 1
+Command: inactive_users: stdout: patterns not found: [!/./]
+
+Title: 3.5.1.5 | Ensure ufw outbound connections are configured
+Meta:
+    CIS_ID: [3.5.1.5]
+    server: 1
+    workstation: 1
+Command: ufw_outbound: stdout: patterns not found: [!/^Manual/]
+
+Title: 5.3.18 | Ensure SSH warning banner configured | sshd_default
+Meta:
+    CIS_ID: [5.3.18]
+    server: 1
+    workstation: 1
+Command: ssh_banner: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: ssh_banner: stdout: patterns not found: [Banner /etc/issue.net]
+
+Title: 4.1.10 |Ensure unsuccessful unauthorized file access attempts are collected | Live
+Meta:
+    CIS_ID: [4.1.10]
+    server: 2
+    workstation: 2
+Command: auditd_access_live: exit-status:
+Expected
+    <int>: 1
+to equal
+    <int>: 0
+Command: auditd_access_live: stdout: patterns not found: [-a always,exit -F arch=b64 -S open,truncate,ftruncate,creat,openat -F exit=-EACCES -F auid>=1000 -F auid!=-1 -F key=access, -a always,exit -F arch=b32 -S open,creat,truncate,ftruncate,openat -F exit=-EACCES -F auid>=1000 -F auid!=-1 -F key=access, -a always,exit -F arch=b64 -S open,truncate,ftruncate,creat,openat -F exit=-EPERM -F auid>=1000 -F auid!=-1 -F key=access, -a always,exit -F arch=b32 -S open,creat,truncate,ftruncate,openat -F exit=-EPERM -F auid>=1000 -F auid!=-1 -F key=access]
+
+Title: 1.7.3 | Ensure remote login warning banner is configured properly
+Meta:
+    CIS_ID: [1.7.3]
+    server: 1
+    workstation: 1
+Command: cremote_login_banner: stdout: patterns not found: [!/.*/]
+
+Title: 5.3.14 | Ensure only strong MACs are used
+Meta:
+    CIS_ID: [5.3.14]
+    server: 1
+    workstation: 1
+Command: sshd_MACS: exit-status:
+Expected
+    <int>: 2
+To satisfy at least one of these matchers: [%!s(*matchers.EqualMatcher=&{0}) %!s(*matchers.EqualMatcher=&{1})]
+Command: sshd_MACS: stdout: patterns not found: [MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256]
+
+Title: 3.3.7 | Ensure Reverse Path Filtering is enabled | ipv4 all rp_filter conf
+Meta:
+    CIS_ID: [3.3.7]
+    server: 1
+    workstation: 1
+Command: ipv4_all_rp_filter: stdout: patterns not found: [/^\/etc\/sysctl.*:net.ipv4.conf.all.rp_filter(\s|)=(\s|)1/]
+
+Title: 3.2.2 | Ensure IP forwarding is disabled | IPv4 config
+Meta:
+    CIS_ID: [3.2.2]
+    server: 1
+    workstation: 1
+Command: ipv4_ip_forward: stdout: patterns not found: [/^.*:net.ipv4.ip_forward=0/]
+
+Title: 4.1.1.1 | Ensure auditd is installed | audispd-plugins pkg
+Meta:
+    CIS_ID: [4.1.1.1]
+    server: 2
+    workstation: 2
+Package: audispd-plugins: installed:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 4.2.3 | Ensure permissions on all logfiles are configured
+Meta:
+    CIS_ID: [4.2.3]
+    server: 1
+    workstation: 1
+Command: logfile_configured: stdout: patterns not found: [!/./]
+
+Title: 2.1.1.3 | Ensure chrony is configured | chrony installed
+Meta:
+    CIS_ID: 2.1.1.3
+    server: 1
+    workstation: 1
+Package: chrony: installed:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 2.1.3 | Ensure Avahi Server is not installed
+Meta:
+    CIS_ID: 2.1.3
+    server: 1
+    workstation: NA
+Package: avahi-daemon: installed:
+Expected
+    <bool>: true
+to equal
+    <bool>: false
+
+Title: 2.1.16 | Ensure rsync service is not installed
+Meta:
+    CIS_ID: 2.1.16
+    server: 1
+    workstation: 1
+Package: rsync: installed:
+Expected
+    <bool>: true
+to equal
+    <bool>: false
+
+Title: 1.8.1 | Ensure GNOME Display Manager is removed
+Meta:
+    CIS_ID: [1.8.1]
+    server: 1
+    workstation: 1
+Package: gdm3: installed:
+Expected
+    <bool>: true
+to equal
+    <bool>: false
+
+Title: 2.2.4 | Ensure telnet client is not installed
+Meta:
+    CIS_ID: 2.2.4
+    server: 1
+    workstation: 1
+Package: telnet: installed:
+Expected
+    <bool>: true
+to equal
+    <bool>: false
+
+Title: 4.1.1.1 | Ensure auditd is installed | auditd pkg
+Meta:
+    CIS_ID: [4.1.1.1]
+    server: 2
+    workstation: 2
+Package: auditd: installed:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 6.2.10 | Ensure no users have .rhosts files
+Meta:
+    CIS_ID: [6.2.10]
+    server: 1
+    workstation: 1
+dot_rhosts_files: exit-status: Error: Command execution timed out (10s)
+dot_rhosts_files: stdout: Error: Command execution timed out (10s)
+
+Title: 5.1.8 | Ensure cron is restricted to authorized users
+Meta:
+    CIS_ID: [5.1.8]
+    server: 1
+    workstation: 1
+File: /etc/cron.allow: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+File: /etc/cron.allow: mode: skipped
+File: /etc/cron.allow: owner: skipped
+File: /etc/cron.allow: group: skipped
+
+Title: 5.1.5 | Ensure permissions on /etc/cron.weekly are configured
+Meta:
+    CIS_ID: [5.1.5]
+    server: 1
+    workstation: 1
+File: /etc/cron.weekly: mode:
+Expected
+    <string>: 0755
+to equal
+    <string>: 0700
+
+Title: 5.4.1 | Ensure password creation requirements are configured | pwquality
+Meta:
+    CIS_ID: [5.4.1]
+    server: 1
+    workstation: 1
+File: /etc/security/pwquality.conf: contains: patterns not found: [4, 14]
+
+Title: 5.1.7 | Ensure permissions on /etc/cron.d are configured
+Meta:
+    CIS_ID: [5.1.7]
+    server: 1
+    workstation: 1
+File: /etc/cron.d: mode:
+Expected
+    <string>: 0755
+to equal
+    <string>: 0700
+
+Title: 5.4.2 | Ensure lockout for failed password attempts is configured | common-auth
+Meta:
+    CIS_ID: [5.4.2]
+    server: 1
+    workstation: 1
+File: /etc/pam.d/common-auth: contains: patterns not found: [/^auth\s*required\s*pam_tally2.so/]
+
+Title: 5.1.2 | Ensure permissions on /etc/crontab are configured
+Meta:
+    CIS_ID: [5.1.2]
+    server: 1
+    workstation: 1
+File: /etc/crontab: mode:
+Expected
+    <string>: 0644
+to equal
+    <string>: 0600
+
+Title: 1.4.1 | Ensure permissions on bootloader config are not overridden
+Meta:
+    CIS_ID: [1.4.1]
+    server: 1
+    workstation: 1
+File: /usr/sbin/grub-mkconfig: contains: patterns not found: [!/chmod ([0-3]|[5-7)[[1-7][1-7])/, !/password/]
+
+Title: 5.1.3 | Ensure permissions on /etc/cron.hourly are configured
+Meta:
+    CIS_ID: [5.1.3]
+    server: 1
+    workstation: 1
+File: /etc/cron.hourly: mode:
+Expected
+    <string>: 0755
+to equal
+    <string>: 0700
+
+Title: 5.5.5 | Ensure default user shell timeout is configured | profile.d
+Meta:
+    CIS_ID: [5.5.5]
+    server: 1
+    workstation: 1
+File: /etc/profile.d/tmout.sh: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+File: /etc/profile.d/tmout.sh: contains: skipped
+
+Title: 5.1.9 | Ensure at is restricted to authorized users
+Meta:
+    CIS_ID: [5.1.9]
+    server: 1
+    workstation: 1
+File: /etc/at.allow: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+File: /etc/at.allow: mode: skipped
+File: /etc/at.allow: owner: skipped
+File: /etc/at.allow: group: skipped
+
+Title: 1.5.4 | Ensure core dumps are restricted | coredump.conf if systemd-coredump installed
+Meta:
+    CIS_ID: [1.5.4]
+    server: 1
+    workstation: 1
+File: /etc/systemd/coredump.conf: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+File: /etc/systemd/coredump.conf: contains: skipped
+
+Title: 2.1.1.3 | Ensure chrony is configured | chronyd service
+Meta:
+    CIS_ID: 2.1.1.3
+    server: 1
+    workstation: 1
+Service: chronyd: enabled:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+Service: chronyd: running:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 2.1.5 | Ensure DHCP Server is not installed
+Meta:
+    CIS_ID: 2.1.5
+    server: 1
+    workstation: 1
+Package: cups: installed:
+Expected
+    <bool>: true
+to equal
+    <bool>: false
+
+Title: 2.1.1.3 | Ensure chrony is configured | chrony.conf
+Meta:
+    CIS_ID: 2.1.1.3
+    server: 1
+    workstation: 1
+File: /etc/chrony/chrony.conf: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+File: /etc/chrony/chrony.conf: contains: skipped
+
+Title: 5.1.6 | Ensure permissions on /etc/cron.monthly are configured
+Meta:
+    CIS_ID: [5.1.6]
+    server: 1
+    workstation: 1
+File: /etc/cron.monthly: mode:
+Expected
+    <string>: 0755
+to equal
+    <string>: 0700
+
+Title: 4.4 | Ensure logrotate assigns appropriate permissions | default
+Meta:
+    CIS_ID: [4.4]
+    server: 1
+    workstation: 1
+File: /etc/logrotate.conf: contains: patterns not found: [/^(\s*|)create 06[0,4]0/]
+
+Title: 4.1.1.4 | Ensure audit_backlog_limit is sufficient | default grub
+Meta:
+    CIS_ID: [4.1.1.4]
+    server: 2
+    workstation: 2
+File: /etc/default/grub: contains: patterns not found: [/GRUB_CMDLINE_LINUX=".*audit_backlog_limit=2048/, /audit_backlog_limit=(819[2-9]|8[2-9]{2,}|9[0-9]{3,}|[1-9]{5,})/]
+
+Title: 5.1.4 | Ensure permissions on /etc/cron.daily are configured
+Meta:
+    CIS_ID: [5.1.4]
+    server: 1
+    workstation: 1
+File: /etc/cron.daily: mode:
+Expected
+    <string>: 0755
+to equal
+    <string>: 0700
+
+Title: 4.2.1.3 | Ensure logging is configured
+Meta:
+    CIS_ID: [4.2.1.3]
+    server: 1
+    workstation: 1
+File: /etc/rsyslog.d/50-default.conf: contains: patterns not found: [/^mail.*             -/var/log/mail/, /^auth,authpriv.*     /var/log/auth.log/, /^mail.info\s*       -/var/log/mail.info/, /^mail.warn\s*       -/var/log/mail.warn/, /^mail.err\s*         /var/log/mail.err/, /^news.err\s*        -/var/log/news/news.err/, /^news.crit\s*       -/var/log/news/news.crit/, /^news.notice\s*     -/var/log/news/news.notice/, /^*.=warning;\*.=err\s*  -/var/log/warn/, /^*.crit\s*           /var/log/warn/, /^*.*;mail.none;news.none\s*   -/var/log/messages/, /^local0,local1.\*\s*          -/var/log/localmessages/, /^local2,local3.\*\s*          -/var/log/localmessages/, /^local4,local5.\*\s*          -/var/log/localmessages/, /^local6,local7.\*\s*          -/var/log/localmessages/, /^*.emerg\s*                   :omusrmsg:*/]
+
+Title: 5.7 | Ensure access to the su command is restricted | pam.d/su
+Meta:
+    CIS_ID: [5.7]
+    server: 1
+    workstation: 1
+File: /etc/pam.d/su: contains: patterns not found: [/^auth.*required.*pam_wheel.so\suse_uid/]
+
+Title: 1.6.1.2 | Ensure AppArmor is enabled in the bootloader configuration | running grub
+Meta:
+    CIS_ID: [1.6.1.2]
+    server: 1
+    workstation: 1
+File: /boot/grub/grub.cfg: contains: patterns not found: [/apparmor=1/, /security=apparmor/]
+
+Title: 5.4.2 | Ensure lockout for failed password attempts is configured | common-account
+Meta:
+    CIS_ID: [5.4.2]
+    server: 1
+    workstation: 1
+File: /etc/pam.d/common-account: contains: patterns not found: [/^account\s*required\s*pam_tally2.so/]
+
+Title: 5.3.1 | Ensure permissions on /etc/ssh/sshd_config are configured
+Meta:
+    CIS_ID: [5.3.1]
+    server: 1
+    workstation: 1
+File: /etc/ssh/sshd_config: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+File: /etc/ssh/sshd_config: mode: skipped
+File: /etc/ssh/sshd_config: owner: skipped
+File: /etc/ssh/sshd_config: group: skipped
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv6 all icmp redirects
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv6.conf.all.accept_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 5.7 | Ensure access to the su command is restricted | /etc/group
+Meta:
+    CIS_ID: [5.7]
+    server: 1
+    workstation: 1
+File: /etc/group: contains: patterns not found: [/^wheel:x:[1-9][0-9]{1,4}:$/]
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv4 all icmp redirects
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.all.accept_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.3.9 | Ensure IPv6 router advertisements are not accepted  | ipv6 def router adverts
+Meta:
+    CIS_ID: [3.3.9]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv6.conf.default.accept_ra: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.3.7 | Ensure Reverse Path Filtering is enabled | ipv4 default rp_filter
+Meta:
+    CIS_ID: [3.3.7]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.default.rp_filter: value:
+Expected
+    <string>: 2
+to equal
+    <string>: 1
+
+Title: 3.3.4 | Ensure suspicious packets are logged | ipv4 all martians
+Meta:
+    CIS_ID: [3.3.4]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.all.log_martians: value:
+Expected
+    <string>: 0
+to equal
+    <string>: 1
+
+Title: 3.3.3 | Ensure secure ICMP redirects are not accepted | ipv4 def sec redirects
+Meta:
+    CIS_ID: [3.2.3]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.default.secure_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.3.9 | Ensure IPv6 router advertisements are not accepted | ipv6 all router adverts
+Meta:
+    CIS_ID: [3.3.9]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv6.conf.all.accept_ra: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.3.7 | Ensure Reverse Path Filtering is enabled | ipv4 all rp_filter
+Meta:
+    CIS_ID: [3.3.7]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.all.rp_filter: value:
+Expected
+    <string>: 2
+to equal
+    <string>: 1
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv4 default icmp redirects
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.default.accept_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.3.4 | Ensure suspicious packets are logged | ipv4 default martians
+Meta:
+    CIS_ID: [3.3.4]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.default.log_martians: value:
+Expected
+    <string>: 0
+to equal
+    <string>: 1
+
+Title: 3.2.1 | Ensure packet redirect sending is disabled | all send_redirect
+Meta:
+    CIS_ID: [3.2.1]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.all.send_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.3.3 | Ensure secure ICMP redirects are not accepted | ipv4 all sec redirects
+Meta:
+    CIS_ID: [3.3.3]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.all.secure_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 3.2.1 | Ensure packet redirect sending is disabled | default send_redirects
+Meta:
+    CIS_ID: [3.2.1]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.default.send_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 1.1.15 | Ensure separate partition exists for /var/log
+Meta:
+    CIS_ID: [1.1.15]
+    server: 2
+    workstation: 2
+Mount: /var/log: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 5.4.1 | Ensure password creation requirements are configured | package
+Meta:
+    CIS_ID: [5.4.1]
+    server: 1
+    workstation: 1
+Package: libpam-pwquality: installed:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 3.3.1 | Ensure source routed packets are not accepted | IPv4 default source routed
+Meta:
+    CIS_ID: [3.3.1]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv4.conf.default.accept_source_route: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 1.1.17 | Ensure seperate partition for /home with mount options
+Meta:
+    CIS_ID: [1.1.17 1.1.18]
+    server: 2
+    workstation: 2
+Mount: /home: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+Mount: /home: opts: skipped
+
+Title: 1.1.6 | Ensure /dev/shm is configured with mount options
+Meta:
+    CIS_ID: [1.1.6 1.1.7 1.1.8 1.1.9]
+    server: 1
+    workstation: 1
+Mount: /dev/shm: opts:
+Expected
+    <[]string | len:3, cap:3>: ["rw", "nosuid", "nodev"]
+to contain element matching
+    <string>: noexec
+
+Title: 1.1.10 | Ensure separate partition exists for /var
+Meta:
+    CIS_ID: [1.1.10]
+    server: 2
+    workstation: 2
+Mount: /var: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 1.1.11 | Ensure separate partition exists for /var/tmp
+Meta:
+    CIS_ID: [1.1.12 1.1.13 1.1.14]
+    server: 1
+    workstation: 1
+Mount: /var/tmp: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+Mount: /var/tmp: opts: skipped
+
+Title: 3.3.2 | Ensure ICMP redirects are not accepted | ipv6 default icmp redirects
+Meta:
+    CIS_ID: [3.3.2]
+    server: 1
+    workstation: 1
+KernelParam: net.ipv6.conf.default.accept_redirects: value:
+Expected
+    <string>: 1
+to equal
+    <string>: 0
+
+Title: 6.2.7 | Ensure users dot files are not group or world writable
+Meta:
+    CIS_ID: [6.2.7]
+    server: 1
+    workstation: 1
+dot_file_perms: exit-status: Error: Command execution timed out (10s)
+dot_file_perms: stdout: Error: Command execution timed out (10s)
+
+Title: 1.1.2 | Ensure /tmp is configured with mount options
+Meta:
+    CIS_ID: [1.1.2 1.1.3 1.1.4 1.1.5]
+    CISv8: [3.3 4.1]
+    CISv8_IG1: true
+    CISv8_IG2: true
+    CISv8_IG3: true
+    server: 1
+    workstation: 1
+Mount: /tmp: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+Mount: /tmp: opts: skipped
+
+Title: 1.1.16 | Ensure seperate partition for /var/log/audit
+Meta:
+    CIS_ID: [1.1.16]
+    server: 1
+    workstation: 1
+Mount: /var/log/audit: exists:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 4.1.1.2 | Ensure auditd service is enabled and running
+Meta:
+    CIS_ID: [4.1.1.2]
+    server: 2
+    workstation: 2
+Service: auditd: enabled:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+Service: auditd: running:
+Expected
+    <bool>: false
+to equal
+    <bool>: true
+
+Title: 5.5.1.5 | Ensure all users last password change date is in the past
+Meta:
+    CIS_ID: [5.5.1.5]
+    server: 1
+    workstation: 1
+passwd_chg_past: exit-status: Error: Command execution timed out (10s)
+passwd_chg_past: stdout: Error: Command execution timed out (10s)
+
+Title: 6.2.8 | Ensure no users have .netrc files
+Meta:
+    CIS_ID: [6.2.8]
+    server: 1
+    workstation: 1
+dot_netrc_files: exit-status: Error: Command execution timed out (10s)
+dot_netrc_files: stdout: Error: Command execution timed out (10s)
+
+Title: 6.2.9 | Ensure no users have .forward files
+Meta:
+    CIS_ID: [6.2.9]
+    server: 1
+    workstation: 1
+dot_forward_files: exit-status: Error: Command execution timed out (10s)
+dot_forward_files: stdout: Error: Command execution timed out (10s)
+
+Title: 1.9 | Ensure updates, patches, and additional security software are installed
+Meta:
+    CIS_ID: [1.9]
+    server: 1
+    workstation: 1
+Command: check_updates: stdout: patterns not found: [/^All packages are up to date/]
+
+Title: 6.1.10 | Ensure no world writable files exist
+Meta:
+    CIS_ID: [6.1.10]
+    server: 1
+    workstation: 1
+world_writable: exit-status: Error: Command execution timed out (1m0s)
+world_writable: stdout: Error: Command execution timed out (1m0s)
+
+Title: 1.1.22 | Ensure sticky bit is set on all world-writable directories
+Meta:
+    CIS_ID: 1.1.22
+    server: 1
+    workstation: 1
+sticky_bit: exit-status: Error: Command execution timed out (1m0s)
+sticky_bit: stdout: Error: Command execution timed out (1m0s)
+
+Title: 6.1.11 | Ensure no unowned files or directories exist
+Meta:
+    CIS_ID: [6.1.11]
+    server: 1
+    workstation: 1
+unowned_dirs: exit-status: Error: Command execution timed out (1m0s)
+unowned_dirs: stdout: Error: Command execution timed out (1m0s)
+
+Title: 6.1.12 | Ensure no ungrouped files or directories exist
+Meta:
+    CIS_ID: [6.1.12]
+    server: 1
+    workstation: 1
+no_ungrouped: exit-status: Error: Command execution timed out (1m0s)
+no_ungrouped: stdout: Error: Command execution timed out (1m0s)
+
+Title: 6.1.13 | Audit SUID executables
+Meta:
+    CIS_ID: [6.1.13]
+    server: 1
+    workstation: 1
+audit_suid_exec: exit-status: Error: Command execution timed out (1m0s)
+audit_suid_exec: stdout: Error: Command execution timed out (1m0s)
+
+Title: 6.1.14 | Audit SGID executables
+Meta:
+    CIS_ID: [6.1.14]
+    server: 1
+    workstation: 1
+audit_sgid: exit-status: Error: Command execution timed out (1m0s)
+audit_sgid: stdout: Error: Command execution timed out (1m0s)
+
+Total Duration: 64.420s
+Count: 515, Failed: 243, Skipped: 15
